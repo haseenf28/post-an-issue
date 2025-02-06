@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Issue Reporting Form</title>
+    <style>
+        /* General Styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Futuristic Neon Background */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            padding: 20px;
+        }
+
+        /* Glassmorphic Container */
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            width: 480px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.2);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        h2 {
+            color: #00f7ff;
+            margin-bottom: 15px;
+            font-size: 26px;
+            text-transform: uppercase;
+        }
+
+        /* Floating Inputs */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            font-size: 14px;
+            transition: 0.3s;
+            outline: none;
+            box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1);
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus + label,
+        .input-group textarea:focus + label,
+        .input-group input:not(:placeholder-shown) + label,
+        .input-group textarea:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 10px;
+            font-size: 12px;
+            color: #00f7ff;
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed rgba(0, 255, 255, 0.5);
+            padding: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 10px;
+            color: #00f7ff;
+            text-align: center;
+        }
+
+        .file-upload:hover {
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        .file-preview {
+            margin-top: 10px;
+            max-width: 100%;
+            border-radius: 10px;
+            display: none;
+        }
+
+        /* 3D Neon Button */
+        button {
+            padding: 14px;
+            background: linear-gradient(45deg, #00f7ff, #0072ff);
+            color: black;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            box-shadow: 0px 4px 15px rgba(0, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 40%);
+            transition: 0.3s;
+            transform: translate(-50%, -50%) scale(0);
+        }
+
+        button:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 550px) {
+            .container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2> Report an Issue</h2>
+    <form>
+        <div class="input-group">
+            <input type="text" id="title" name="title" placeholder=" " required>
+            <label for="title">📌 Issue Title</label>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="location" name="location" placeholder=" " required>
+            <label for="location">📍 Location</label>
+        </div>
+
+        <div class="input-group">
+            <textarea id="description" name="description" rows="4" placeholder=" " required></textarea>
+            <label for="description">📝 Description</label>
+        </div>
+
+        <div class="input-group">
+            <select id="category" name="category">
+                <option value="animal_welfare">🐾 Animal Welfare & Environmental NGOs</option>
+                <option value="health">🏥 Health & Medical NGOs</option>
+                <option value="education">📚 Education & Child Welfare NGOs</option>
+                <option value="human_rights">⚖️ Human Rights & Social Justice NGOs</option>
+                <option value="disaster_relief">🚨 Disaster Relief & Emergency Services</option>
+                <option value="poverty">💰 Poverty Alleviation & Economic Development</option>
+                <option value="senior_support">👴 Senior Citizen & Disability Support</option>
+            </select>
+        </div>
+
+        <div class="file-upload" onclick="document.getElementById('image').click();">
+            Click to Upload Image
+            <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+        </div>
+        <img id="filePreview" class="file-preview" alt="Image Preview">
+
+        <button type="submit"> Submit Report</button>
+    </form>
+</div>
+
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById("filePreview");
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                preview.src = reader.result;
+                preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+</body>
+</html>
